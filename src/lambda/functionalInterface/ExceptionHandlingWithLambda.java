@@ -1,4 +1,4 @@
-package lambda;
+package lambda.functionalInterface;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;

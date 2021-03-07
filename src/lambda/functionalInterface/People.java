@@ -1,4 +1,4 @@
-package lambda.lambdaFunctionalInterface;
+package lambda.functionalInterface;
 
 public class People {
 

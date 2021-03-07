@@ -1,13 +1,11 @@
-package lambda.lambdaFunctionalInterface;
+package lambda.functionalInterface;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class StatsWithPredicateConsumerFunctionalInterface {
+public class StatsWithLambda {
 
   public static void main(String[] args){
 
@@ -19,26 +17,32 @@ public class StatsWithPredicateConsumerFunctionalInterface {
 
     //Sort the people list by first Name
     Collections.sort(peopleList, (p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()));
+//    peopleList.sort((p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()));
+
 
     //print all People
     System.out.println("Printing sorted list");
-    performAll(peopleList, (p) -> true, (p)->System.out.println(p));
+    printAll(peopleList, (p) -> true);
 
     //print all with lastName starting with c
     System.out.println("\nPrinting all with last Name starting with C");
-    performAll(peopleList, (p)-> p.getLastName().startsWith("c"), (p)->System.out.println(p));
+    printAll(peopleList, (p)-> p.getLastName().startsWith("c"));
 
 
   }
 
   //Predicate is a functional interface containg test method which returns boolean
-  public static void performAll(List<People> inpList, Predicate<People> cond, Consumer<People> consumer){
+  public static void printAll(List<People> inpList, Condition cond){
 
     List<People> outList = inpList.stream()
-        .filter(p -> cond.test(p))
+        .filter(p -> cond.check(p))
         .collect(Collectors.toList());
 
-    outList.forEach((p)->consumer.accept(p));
+    outList.forEach(System.out::println);
+  }
+
+  interface Condition {
+    boolean check(People p);
   }
 
 }

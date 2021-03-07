@@ -1,12 +1,13 @@
-package lambda.lambdaFunctionalInterface;
+package lambda.functionalInterface;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class StatsWithPredicateFunctionalInterface {
+public class StatsWithPredicateConsumerFunctionalInterface {
 
   public static void main(String[] args){
 
@@ -21,23 +22,23 @@ public class StatsWithPredicateFunctionalInterface {
 
     //print all People
     System.out.println("Printing sorted list");
-    printAll(peopleList, (p) -> true);
+    performAll(peopleList, (p) -> true, (p)->System.out.println(p));
 
     //print all with lastName starting with c
     System.out.println("\nPrinting all with last Name starting with C");
-    printAll(peopleList, (p)-> p.getLastName().startsWith("c"));
+    performAll(peopleList, (p)-> p.getLastName().startsWith("c"), (p)->System.out.println(p));
 
 
   }
 
   //Predicate is a functional interface containg test method which returns boolean
-  public static void printAll(List<People> inpList, Predicate<People> cond){
+  public static void performAll(List<People> inpList, Predicate<People> cond, Consumer<People> consumer){
 
     List<People> outList = inpList.stream()
         .filter(p -> cond.test(p))
         .collect(Collectors.toList());
 
-    outList.forEach(System.out::println);
+    outList.forEach((p)->consumer.accept(p));
   }
 
 }

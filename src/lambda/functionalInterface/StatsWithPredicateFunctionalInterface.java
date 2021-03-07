@@ -1,11 +1,12 @@
-package lambda.lambdaFunctionalInterface;
+package lambda.functionalInterface;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class StatsWithLambda {
+public class StatsWithPredicateFunctionalInterface {
 
   public static void main(String[] args){
 
@@ -17,8 +18,6 @@ public class StatsWithLambda {
 
     //Sort the people list by first Name
     Collections.sort(peopleList, (p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()));
-//    peopleList.sort((p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()));
-
 
     //print all People
     System.out.println("Printing sorted list");
@@ -32,17 +31,13 @@ public class StatsWithLambda {
   }
 
   //Predicate is a functional interface containg test method which returns boolean
-  public static void printAll(List<People> inpList, Condition cond){
+  public static void printAll(List<People> inpList, Predicate<People> cond){
 
     List<People> outList = inpList.stream()
-        .filter(p -> cond.check(p))
+        .filter(p -> cond.test(p))
         .collect(Collectors.toList());
 
     outList.forEach(System.out::println);
-  }
-
-  interface Condition {
-    boolean check(People p);
   }
 
 }
